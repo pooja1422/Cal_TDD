@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 public class StringCalculator {
     public static int add(String numbers) {
         if (numbers.isEmpty()) {
@@ -11,8 +13,16 @@ public class StringCalculator {
         }
         String[] numArray = numbers.split(delimiter);
         int sum = 0;
+        List<String> negativeNumbers = new ArrayList<>();
         for (String num : numArray) {
-            sum += Integer.parseInt(num);
+            int number = Integer.parseInt(num);
+            if (number < 0) {
+                negativeNumbers.add(num);
+            }
+            sum += number;
+        }
+        if (!negativeNumbers.isEmpty()) {
+            throw new IllegalArgumentException("negative numbers not allowed: " + String.join(", ", negativeNumbers));
         }
         return sum;
     }
